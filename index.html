@@ -216,7 +216,164 @@
             width: 100%;
             display: flex;
             justify-content: center;
+        }
 
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(97, 218, 251, 0);
+                transform: scale(1.02);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: -100% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Video popup styles */
+        .video-button {
+            background: rgba(30, 41, 59, 0.9);
+            color: #61dafb;
+            padding: 18px 36px;
+            border: 2px solid rgba(97, 218, 251, 0.5);
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Fira Code', monospace;
+            font-size: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 30px auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            animation: pulse 2s infinite;
+            background: linear-gradient(
+                90deg, 
+                rgba(30, 41, 59, 0.9) 0%, 
+                rgba(49, 91, 124, 0.9) 25%,
+                rgba(97, 218, 251, 0.4) 50%,
+                rgba(49, 91, 124, 0.9) 75%,
+                rgba(30, 41, 59, 0.9) 100%
+            );
+            background-size: 200% 100%;
+            animation: pulse 2s infinite, shine 3s infinite;
+        }
+
+        .video-button svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .video-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            border-color: rgba(97, 218, 251, 1);
+            box-shadow: 
+                0 0 30px rgba(97, 218, 251, 0.4),
+                0 0 60px rgba(97, 218, 251, 0.2);
+            animation: none;
+        }
+
+        .video-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-popup.active {
+            display: flex;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            height: 100vh;
+            width: auto;
+            max-width: 100vw;
+            object-fit: contain;
+            background: #000;
+        }
+
+        @media (orientation: portrait) {
+            .video-container video {
+                height: auto;
+                width: 100vw;
+            }
+        }
+
+        .close-video {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #61dafb;
+            font-size: 24px;
+            cursor: pointer;
+            border: 1px solid rgba(97, 218, 251, 0.3);
+            padding: 8px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .close-video:hover {
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
+        }
+
+        .video-popup.active .video-container {
+            animation: scaleIn 0.3s ease forwards;
+        }
+
+        .video-popup.active {
+            animation: fadeIn 0.3s ease forwards;
         }
     </style>
 </head>
@@ -251,6 +408,25 @@
                     <span class="countdown-number" id="seconds">00</span>
                     <span class="countdown-label">Giây</span>
                 </div>
+            </div>
+
+            <button class="video-button" onclick="openVideoPopup()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polygon points="10 8 16 12 10 16" fill="currentColor"/>
+                </svg>
+                🎬 Hướng dẫn chuẩn bị 🍺
+            </button>
+
+            <!-- Video Popup -->
+            <div class="video-popup" id="videoPopup">
+                <div class="video-container">
+                    <video controls playsinline>
+                        <source src="https://stag.vietnix.dev/wp-content/uploads/2025/11/7176145395151.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <button class="close-video" onclick="closeVideoPopup()">×</button>
             </div>
 
             <div
@@ -380,6 +556,88 @@
                 this.style.transform = 'scale(1)';
                 this.style.boxShadow = 'none';
             });
+
+            // Video popup functionality
+            function openVideoPopup() {
+                const popup = document.getElementById('videoPopup');
+                const video = popup.querySelector('video');
+                popup.classList.add('active');
+                
+                // Try to request fullscreen
+                try {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) {
+                        video.msRequestFullscreen();
+                    }
+                } catch (e) {
+                    console.log('Fullscreen not supported');
+                }
+
+                video.play();
+
+                // Add escape key listener
+                document.addEventListener('keydown', closeOnEscape);
+                
+                // Add click outside listener
+                popup.addEventListener('click', function(e) {
+                    if (e.target === popup) {
+                        closeVideoPopup();
+                    }
+                });
+
+                // Lock screen orientation to landscape if supported
+                try {
+                    if (screen.orientation && screen.orientation.lock) {
+                        screen.orientation.lock('landscape').catch(function() {
+                            console.log('Orientation lock not supported');
+                        });
+                    }
+                } catch (e) {
+                    console.log('Orientation API not supported');
+                }
+            }
+
+            function closeVideoPopup() {
+                const popup = document.getElementById('videoPopup');
+                const video = popup.querySelector('video');
+                popup.classList.remove('active');
+                video.pause();
+                video.currentTime = 0;
+                
+                // Exit fullscreen
+                try {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                } catch (e) {
+                    console.log('Fullscreen exit not supported');
+                }
+
+                // Unlock screen orientation if supported
+                try {
+                    if (screen.orientation && screen.orientation.unlock) {
+                        screen.orientation.unlock();
+                    }
+                } catch (e) {
+                    console.log('Orientation API not supported');
+                }
+                
+                // Remove escape key listener
+                document.removeEventListener('keydown', closeOnEscape);
+            }
+
+            function closeOnEscape(e) {
+                if (e.key === 'Escape') {
+                    closeVideoPopup();
+                }
+            }
         </script>
 </body>
 
