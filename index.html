@@ -35,7 +35,7 @@
     <meta name="robots" content="index, follow">
     <!-- Particle.js for cool background effects -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Roboto:wght@300;400;500;700&display=swap');
 
@@ -46,15 +46,31 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 5px #61dafb; }
-            50% { box-shadow: 0 0 20px #61dafb, 0 0 30px #61dafb; }
-            100% { box-shadow: 0 0 5px #61dafb; }
+            0% {
+                box-shadow: 0 0 5px #61dafb;
+            }
+
+            50% {
+                box-shadow: 0 0 20px #61dafb, 0 0 30px #61dafb;
+            }
+
+            100% {
+                box-shadow: 0 0 5px #61dafb;
+            }
         }
 
         body {
@@ -151,12 +167,10 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(97, 218, 251, 0.1),
-                transparent
-            );
+            background: linear-gradient(120deg,
+                    transparent,
+                    rgba(97, 218, 251, 0.1),
+                    transparent);
             transition: 0.5s;
         }
 
@@ -223,10 +237,12 @@
                 box-shadow: 0 0 0 0 rgba(97, 218, 251, 0.7);
                 transform: scale(1);
             }
+
             70% {
                 box-shadow: 0 0 0 15px rgba(97, 218, 251, 0);
                 transform: scale(1.02);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(97, 218, 251, 0);
                 transform: scale(1);
@@ -237,6 +253,7 @@
             0% {
                 background-position: -100% 0;
             }
+
             100% {
                 background-position: 200% 0;
             }
@@ -261,14 +278,12 @@
             backdrop-filter: blur(10px);
             position: relative;
             animation: pulse 2s infinite;
-            background: linear-gradient(
-                90deg, 
-                rgba(30, 41, 59, 0.9) 0%, 
-                rgba(49, 91, 124, 0.9) 25%,
-                rgba(97, 218, 251, 0.4) 50%,
-                rgba(49, 91, 124, 0.9) 75%,
-                rgba(30, 41, 59, 0.9) 100%
-            );
+            background: linear-gradient(90deg,
+                    rgba(30, 41, 59, 0.9) 0%,
+                    rgba(49, 91, 124, 0.9) 25%,
+                    rgba(97, 218, 251, 0.4) 50%,
+                    rgba(49, 91, 124, 0.9) 75%,
+                    rgba(30, 41, 59, 0.9) 100%);
             background-size: 200% 100%;
             animation: pulse 2s infinite, shine 3s infinite;
         }
@@ -281,7 +296,7 @@
         .video-button:hover {
             transform: translateY(-2px) scale(1.05);
             border-color: rgba(97, 218, 251, 1);
-            box-shadow: 
+            box-shadow:
                 0 0 30px rgba(97, 218, 251, 0.4),
                 0 0 60px rgba(97, 218, 251, 0.2);
             animation: none;
@@ -359,13 +374,23 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes scaleIn {
-            from { transform: scale(0.9); }
-            to { transform: scale(1); }
+            from {
+                transform: scale(0.9);
+            }
+
+            to {
+                transform: scale(1);
+            }
         }
 
         .video-popup.active .video-container {
@@ -412,8 +437,8 @@
 
             <button class="video-button" onclick="openVideoPopup()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polygon points="10 8 16 12 10 16" fill="currentColor"/>
+                    <circle cx="12" cy="12" r="10" />
+                    <polygon points="10 8 16 12 10 16" fill="currentColor" />
                 </svg>
                 🎬 Hướng dẫn chuẩn bị 🍺
             </button>
@@ -431,15 +456,15 @@
 
             <div
                 style="background: rgba(218, 165, 32, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;text-align: left;">
-                <p><strong>Địa điểm:</strong> 63, Phạm Văn Hai, Q. Tân Bình</p>
+                <p><strong>Địa điểm:</strong> 663 Âu Cơ, phường Tân Thành, quận Tân Phú</p>
                 <p><strong>Thời gian:</strong> 6:00 PM - Thứ 6, 14/11/2025</p>
                 <p><strong>Tiêu chí:</strong> Đến là đón, đụng là chụng</p>
             </div>
             <div style="margin-top: 30px; border-radius: 20px;">
                 <h3 style="color: #FFD700;">📍 Địa điểm nhậu:</h3>
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2084717435982!2d106.6639297!3d10.795339199999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1086278f31%3A0xc7c72a34cab78a77!2zUGFuZGEgUGjhuqFtIFbEg24gSGFp!5e0!3m2!1svi!2s!4v1762136153525!5m2!1svi!2s"
-                    width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62707.49180597115!2d106.6230441!3d10.7945904!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f6116d99b9f%3A0x173922ee9be68d6d!2sNONG%20-%20Farm%20To%20Grill!5e0!3m2!1svi!2s!4v1762757775896!5m2!1svi!2s"
+                   width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
@@ -548,11 +573,11 @@
 
             // Add hover effect to map container
             document.querySelector('iframe').parentElement.style.transition = 'all 0.3s ease';
-            document.querySelector('iframe').parentElement.addEventListener('mouseenter', function() {
+            document.querySelector('iframe').parentElement.addEventListener('mouseenter', function () {
                 this.style.transform = 'scale(1.01)';
                 this.style.boxShadow = '0 0 30px rgba(97, 218, 251, 0.2)';
             });
-            document.querySelector('iframe').parentElement.addEventListener('mouseleave', function() {
+            document.querySelector('iframe').parentElement.addEventListener('mouseleave', function () {
                 this.style.transform = 'scale(1)';
                 this.style.boxShadow = 'none';
             });
@@ -562,7 +587,7 @@
                 const popup = document.getElementById('videoPopup');
                 const video = popup.querySelector('video');
                 popup.classList.add('active');
-                
+
                 // Try to request fullscreen
                 try {
                     if (video.requestFullscreen) {
@@ -580,9 +605,9 @@
 
                 // Add escape key listener
                 document.addEventListener('keydown', closeOnEscape);
-                
+
                 // Add click outside listener
-                popup.addEventListener('click', function(e) {
+                popup.addEventListener('click', function (e) {
                     if (e.target === popup) {
                         closeVideoPopup();
                     }
@@ -591,7 +616,7 @@
                 // Lock screen orientation to landscape if supported
                 try {
                     if (screen.orientation && screen.orientation.lock) {
-                        screen.orientation.lock('landscape').catch(function() {
+                        screen.orientation.lock('landscape').catch(function () {
                             console.log('Orientation lock not supported');
                         });
                     }
@@ -606,7 +631,7 @@
                 popup.classList.remove('active');
                 video.pause();
                 video.currentTime = 0;
-                
+
                 // Exit fullscreen
                 try {
                     if (document.exitFullscreen) {
@@ -628,7 +653,7 @@
                 } catch (e) {
                     console.log('Orientation API not supported');
                 }
-                
+
                 // Remove escape key listener
                 document.removeEventListener('keydown', closeOnEscape);
             }
