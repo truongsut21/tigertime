@@ -34,10 +34,51 @@
     <meta name="theme-color" content="#DAA520">
     <meta name="robots" content="index, follow">
     <!-- Particle.js for cool background effects -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Roboto:wght@300;400;500;700&display=swap');
+        /* Hoa Mai Container */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Single Petal */
+        .petal {
+            position: absolute;
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+        }
+
+        .petal svg {
+            filter: drop-shadow(0 1px 2px rgba(255, 200, 0, 0.3));
+        }
+
+        /* Gentle sway animation */
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: rotate(-8deg);
+            }
+
+            50% {
+                transform: rotate(8deg);
+            }
+        }
+
+        .petal-inner {
+            animation: sway 2s ease-in-out infinite;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+
+
 
         @keyframes in {
             to {
@@ -61,64 +102,50 @@
 
         @keyframes glow {
             0% {
-                box-shadow: 0 0 5px #61dafb;
+                box-shadow: 0 0 5px#ffc67c;
             }
 
             50% {
-                box-shadow: 0 0 20px #61dafb, 0 0 30px #61dafb;
+                box-shadow: 0 0 20px#ffc67c, 0 0 30px#ffc67c;
             }
 
             100% {
-                box-shadow: 0 0 5px #61dafb;
+                box-shadow: 0 0 5px#ffc67c;
             }
         }
 
         body {
-            background: #1a1a1a;
-            color: #e0e0e0;
+
+            background: linear-gradient(135deg, #8B2332 0%, #5C1A1A 50%, #3D1212 100%);
+            color: #ffc67c;
             min-height: 100vh;
             margin: 0;
             padding: 0;
-            font-family: 'Fira Code', monospace;
-        }
-
-        #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: linear-gradient(135deg, #0a192f, #172a45, #1a1a1a);
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
 
         .text {
+            background-image: url(https://i.pinimg.com/736x/65/1b/8a/651b8a9f01824a9cc09ff0d7bb7d4210.jpg);
             position: relative;
             z-index: 1;
-            color: #e0e0e0;
-            font-family: 'Fira Code', monospace;
+            color: #ffc06d;
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 300;
             text-align: center;
             margin-top: 20px;
             padding: 20px;
-            background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 16px;
-            border: 1px solid rgba(97, 218, 251, 0.2);
-            box-shadow: 0 8px 32px rgba(97, 218, 251, 0.1);
             transition: all 0.3s ease;
         }
 
-        .text:hover {
-            border-color: rgba(97, 218, 251, 0.4);
-            box-shadow: 0 8px 32px rgba(97, 218, 251, 0.2);
-        }
+
 
         .text h1 {
             font-size: 32px;
             margin-bottom: 20px;
-            color: #61dafb;
-            text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);
+            color: #ffc67c;
+            text-shadow: 0 0 10px rgba(212, 168, 75, 0.5);
             font-weight: bold;
             animation: float 3s ease-in-out infinite;
         }
@@ -128,11 +155,11 @@
             margin: 10px 0;
             font-style: normal;
             font-weight: 400;
-            color: #f4e4bc;
+            color: #ffc67c;
         }
 
         .text strong {
-            color: #FFD700;
+            color: #ffc67c;
             font-weight: 600;
         }
 
@@ -145,15 +172,15 @@
         }
 
         .countdown-item {
-            background: rgba(30, 41, 59, 0.8);
-            color: #e0e0e0;
+            background: rgba(91, 26, 26, 0.8);
+            color: #fad29e;
             padding: 20px;
             border-radius: 12px;
             text-align: center;
             min-width: 80px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(97, 218, 251, 0.3);
-            box-shadow: 0 8px 32px rgba(97, 218, 251, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            box-shadow: 0 8px 32px rgba(212, 168, 75, 0.1);
             transform: translateY(0);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -169,15 +196,15 @@
             height: 100%;
             background: linear-gradient(120deg,
                     transparent,
-                    rgba(97, 218, 251, 0.1),
+                    rgba(212, 168, 75, 0.1),
                     transparent);
             transition: 0.5s;
         }
 
         .countdown-item:hover {
             transform: translateY(-5px) scale(1.02);
-            border-color: rgba(97, 218, 251, 0.6);
-            box-shadow: 0 12px 35px rgba(97, 218, 251, 0.2);
+            border-color: rgba(212, 168, 75, 0.6);
+            box-shadow: 0 12px 35px rgba(212, 168, 75, 0.2);
             animation: glow 2s infinite;
         }
 
@@ -190,26 +217,26 @@
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
-            color: #61dafb;
-            text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);
-            font-family: 'Fira Code', monospace;
+            color: #ffc67c;
+            text-shadow: 0 0 10px rgba(212, 168, 75, 0.5);
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
 
         .countdown-label {
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #8892b0;
+            color: #ffc67c;
             font-weight: 500;
-            font-family: 'Fira Code', monospace;
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
 
         .countdown-title {
             font-size: 28px;
-            color: #61dafb;
+            color: #ffc67c;
             margin-bottom: 20px;
             font-weight: 600;
-            text-shadow: 0 0 15px rgba(97, 218, 251, 0.4);
+            text-shadow: 0 0 15px rgba(212, 168, 75, 0.4);
             letter-spacing: 1px;
             position: relative;
             display: inline-block;
@@ -222,7 +249,7 @@
             height: 2px;
             bottom: -5px;
             left: 0;
-            background: linear-gradient(90deg, transparent, #61dafb, transparent);
+            background: linear-gradient(90deg, transparent, #ffc67c, transparent);
             animation: glow 2s infinite;
         }
 
@@ -234,17 +261,17 @@
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0.7);
+                box-shadow: 0 0 0 0 rgba(212, 168, 75, 0.7);
                 transform: scale(1);
             }
 
             70% {
-                box-shadow: 0 0 0 15px rgba(97, 218, 251, 0);
+                box-shadow: 0 0 0 15px rgba(212, 168, 75, 0);
                 transform: scale(1.02);
             }
 
             100% {
-                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0);
+                box-shadow: 0 0 0 0 rgba(212, 168, 75, 0);
                 transform: scale(1);
             }
         }
@@ -261,13 +288,13 @@
 
         /* Video popup styles */
         .video-button {
-            background: rgba(30, 41, 59, 0.9);
-            color: #61dafb;
+            background: rgba(245, 230, 211, 0.95);
+            color: #5C1A1A;
             padding: 18px 36px;
-            border: 2px solid rgba(97, 218, 251, 0.5);
+            border: 2px solid#ffc67c;
             border-radius: 12px;
             cursor: pointer;
-            font-family: 'Fira Code', monospace;
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-size: 20px;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -278,12 +305,6 @@
             backdrop-filter: blur(10px);
             position: relative;
             animation: pulse 2s infinite;
-            background: linear-gradient(90deg,
-                    rgba(30, 41, 59, 0.9) 0%,
-                    rgba(49, 91, 124, 0.9) 25%,
-                    rgba(97, 218, 251, 0.4) 50%,
-                    rgba(49, 91, 124, 0.9) 75%,
-                    rgba(30, 41, 59, 0.9) 100%);
             background-size: 200% 100%;
             animation: pulse 2s infinite, shine 3s infinite;
         }
@@ -295,10 +316,10 @@
 
         .video-button:hover {
             transform: translateY(-2px) scale(1.05);
-            border-color: rgba(97, 218, 251, 1);
+            border-color: #ffc67c;
             box-shadow:
-                0 0 30px rgba(97, 218, 251, 0.4),
-                0 0 60px rgba(97, 218, 251, 0.2);
+                0 0 30px rgba(212, 168, 75, 0.4),
+                0 0 60px rgba(212, 168, 75, 0.2);
             animation: none;
         }
 
@@ -352,17 +373,17 @@
             top: 20px;
             right: 20px;
             z-index: 1001;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(91, 26, 26, 0.8);
             width: 40px;
             height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #61dafb;
+            color: #ffc67c;
             font-size: 24px;
             cursor: pointer;
-            border: 1px solid rgba(97, 218, 251, 0.3);
+            border: 1px solid rgba(212, 168, 75, 0.3);
             padding: 8px;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
@@ -404,8 +425,8 @@
 </head>
 
 <body>
-    <!-- Particle.js container -->
-    <div id="particles-js"></div>
+
+    <div class="petals-container" id="vnx-petals" style="z-index: 10;"></div>
 
     <div style="max-width: 950px; margin: auto; width: 100%; position: relative; z-index: 1;">
 
@@ -447,7 +468,7 @@
             <div class="video-popup" id="videoPopup">
                 <div class="video-container">
                     <video controls playsinline>
-                        <source src="https://stag.vietnix.dev/wp-content/uploads/2025/11/vid.mp4" type="video/mp4">
+                        <source src="https://stag.vietnix.dev/wp-content/uploads/2026/01/123.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -456,22 +477,83 @@
 
             <div
                 style="background: rgba(218, 165, 32, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;text-align: left;">
-                <p><strong>Địa điểm:</strong> 663 Âu Cơ, phường Tân Thành, quận Tân Phú</p>
-                <p><strong>Thời gian:</strong> 6:00 PM - Thứ 6, 14/11/2025</p>
+                <p><strong>Địa điểm:</strong> 63 Phạm Văn Hai, Phường 3, Tân Bình, Thành phố Hồ Chí Minh</p>
+                <p><strong>Thời gian:</strong> 6:00 PM - Thứ 6, 09/01/2026</p>
                 <p><strong>Tiêu chí:</strong> Đến là đón, đụng là chụng</p>
             </div>
+
+            <!-- Menu Panda -->
+            <div
+                style="background: rgba(218, 165, 32, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0; text-align: left; border: 1px solid rgba(212, 168, 75, 0.3);">
+                <h2 style="color:#ffc67c; text-align: center; margin-bottom: 25px; font-size: 24px;">🐼 NOTE MÓN ĂN
+                    PANDA 🐼</h2>
+
+                <!-- Lên món trước -->
+                <div style="margin-bottom: 25px;">
+                    <h3 style="color: #FF6B35; margin-bottom: 15px; font-size: 18px;">🔥 LÊN MÓN TRƯỚC</h3>
+                    <p style="color: #ffc67c; font-style: italic; margin-bottom: 15px; font-size: 14px;">(Ưu tiên ra đầu
+                        bàn)</p>
+                    <div style="display: grid; gap: 8px;">
+                        <p style="margin: 0;">🍍 <strong>1. Cơm chiên trái thơm</strong> – 4 <span
+                                style="color: #FF6B35; font-size: 12px;">(ra đầu tiên)</span></p>
+                        <p style="margin: 0;">🌈 <strong>2. Tré trộn cầu vồng</strong> – 4</p>
+                        <p style="margin: 0;">🥩 <strong>3. Bò cuộn cải bẹ xanh</strong> – 4</p>
+                        <p style="margin: 0;">🥬 <strong>4. Rau kho quẹt hỏa diệm</strong> – 4</p>
+                        <p style="margin: 0;">🐚 <strong>5. Nghêu hấp sả</strong> – 2</p>
+                        <p style="margin: 0;">🌶️ <strong>6. Nghêu hấp Thái</strong> – 2</p>
+                        <p style="margin: 0;">❄️ <strong>7. Ba chỉ bò Bingsu</strong> – 4</p>
+                        <p style="margin: 0;">🦑 <strong>8. Răng mực sốt bơ cay</strong> – 4</p>
+                        <p style="margin: 0; padding-left: 20px; color:#ffc67c; font-size: 14px;">↳ Cho thêm bánh đa</p>
+                    </div>
+                </div>
+
+                <!-- Lên món sau -->
+                <div style="margin-bottom: 25px;">
+                    <h3 style="color: #FFD700; margin-bottom: 15px; font-size: 18px;">🍳 LÊN MÓN SAU</h3>
+                    <p style="color: #ffc67c; font-style: italic; margin-bottom: 15px; font-size: 14px;">(Ra sau khi
+                        khách ăn gần xong món trước)</p>
+                    <div style="display: grid; gap: 8px;">
+                        <p style="margin: 0;">🍤 <strong>9. Tôm sống sốt Thái</strong> – 2</p>
+                        <p style="margin: 0;">🍄 <strong>10. Bò cuộn nấm kim châm</strong> – 4</p>
+                        <p style="margin: 0;">🥟 <strong>11. Chả giò biển cả Panda</strong> – 4</p>
+                        <p style="margin: 0;">⬜ <strong>12. Đậu hủ chiên</strong> – 4 <span
+                                style="color: #FFD700; font-size: 12px;">(lên món sau)</span></p>
+                        <p style="margin: 0;">🍗 <strong>13. Sụn gà chiên nước mắm</strong> – 2</p>
+                        <p style="margin: 0;">🧂 <strong>14. Sụn gà rang muối</strong> – 2</p>
+                    </div>
+                </div>
+
+                <!-- Nước uống -->
+                <div style="margin-bottom: 25px;">
+                    <h3 style="color: #FFA500; margin-bottom: 15px; font-size: 18px;">🥤 NƯỚC UỐNG</h3>
+                    <div style="display: grid; gap: 8px;">
+                        <p style="margin: 0;">🐯 <strong>15. Tiger nâu</strong> – 4 thùng</p>
+                    </div>
+                </div>
+
+                <!-- Món dự bị -->
+                <div
+                    style="background: rgba(255, 107, 53, 0.1); padding: 15px; border-radius: 10px; border: 1px dashed rgba(255, 107, 53, 0.5);">
+                    <h3 style="color: #FF6B35; margin-bottom: 15px; font-size: 18px;">🍲 MÓN DỰ BỊ</h3>
+                    <div style="display: grid; gap: 8px;">
+                        <p style="margin: 0;">🔥 <strong>16. Lẩu Thái Tom Yum</strong> – 3</p>
+                        <p style="margin: 0;">🧈 <strong>17. Đậu hủ nướng giấy bạc</strong> – 4</p>
+                    </div>
+                </div>
+            </div>
+
             <div style="margin-top: 30px; border-radius: 20px;">
                 <h3 style="color: #FFD700;">📍 Địa điểm nhậu:</h3>
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62707.49180597115!2d106.6230441!3d10.7945904!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f6116d99b9f%3A0x173922ee9be68d6d!2sNONG%20-%20Farm%20To%20Grill!5e0!3m2!1svi!2s!4v1762757775896!5m2!1svi!2s"
-                   width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62711.33769831684!2d106.6408539!3d10.7761444!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1086278f31%3A0xc7c72a34cab78a77!2zUGFuZGEgUGjhuqFtIFbEg24gSGFp!5e0!3m2!1svi!2s!4v1767597702859!5m2!1svi!2s"
+                    width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
 
         <script>
             // Set the date we're counting down to - November 14, 2025 at 6:00 PM
-            const countDownDate = new Date("November 14, 2025 18:00:00").getTime();
+            const countDownDate = new Date("January 9, 2026 18:00:00").getTime();
 
             // Update the countdown every 1 second
             const x = setInterval(function () {
@@ -502,74 +584,6 @@
         </script>
 
         <script>
-            // Particle.js configuration
-            particlesJS('particles-js', {
-                particles: {
-                    number: {
-                        value: 80,
-                        density: {
-                            enable: true,
-                            value_area: 800
-                        }
-                    },
-                    color: {
-                        value: '#61dafb'
-                    },
-                    shape: {
-                        type: 'circle'
-                    },
-                    opacity: {
-                        value: 0.5,
-                        random: true
-                    },
-                    size: {
-                        value: 3,
-                        random: true
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: '#61dafb',
-                        opacity: 0.2,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 2,
-                        direction: 'none',
-                        random: true,
-                        straight: false,
-                        out_mode: 'out',
-                        bounce: false
-                    }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: {
-                            enable: true,
-                            mode: 'grab'
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: 'push'
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 140,
-                            line_linked: {
-                                opacity: 0.5
-                            }
-                        },
-                        push: {
-                            particles_nb: 4
-                        }
-                    }
-                },
-                retina_detect: true
-            });
 
             // Add hover effect to map container
             document.querySelector('iframe').parentElement.style.transition = 'all 0.3s ease';
@@ -663,7 +677,156 @@
                     closeVideoPopup();
                 }
             }
+
+
+            const petalsContainer = document.getElementById('vnx-petals');
+            // check if petalsContainer is null
+            const petals = [];
+            let mouseX = -1000;
+            let mouseY = -1000;
+
+            // =======================
+            // CONFIG
+            // =======================
+            const STOP_DATE = new Date('2026-03-01');
+            const MAX_PETALS = 80;
+
+            // =======================
+            // DATE CHECK
+            // =======================
+            function shouldStopAnimation() {
+                return new Date() > STOP_DATE;
+            }
+
+            // =======================
+            // PETAL SVGs
+            // =======================
+            const petalSVGs = [
+                `<img src="./beer.svg" width="50" height="50" alt="beer">`,
+                `<img src="./beer2.svg" width="54" height="54" alt="beer">`,
+                `<img src="./beer.svg" width="20" height="20" alt="beer">`
+            ];
+
+            // =======================
+            // CREATE PETAL
+            // =======================
+            function createPetal() {
+                if (!petalsContainer) return;
+                if (shouldStopAnimation() || petals.length >= MAX_PETALS) return;
+
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = petalSVGs[Math.floor(Math.random() * petalSVGs.length)];
+
+                const scale = 0.6 + Math.random() * 0.6;
+
+                const data = {
+                    el: petal,
+                    x: Math.random() * window.innerWidth,
+                    y: -40,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: 0.3 + Math.random() * 0.4,
+                    rot: Math.random() * 360,
+                    rotSpd: (Math.random() - 0.5) * 2,
+                    scale,
+                    sway: Math.random() * Math.PI * 2,
+                    swaySpd: 0.02 + Math.random() * 0.02
+                };
+
+                petal.style.opacity = 0.7 + Math.random() * 0.3;
+                petalsContainer.appendChild(petal);
+                petals.push(data);
+            }
+
+            // =======================
+            // UPDATE LOOP
+            // =======================
+            function updatePetals() {
+                if (!petalsContainer) return;
+                const mouseRadius = 130;
+                const attraction = 0.2;
+
+                for (let i = petals.length - 1; i >= 0; i--) {
+                    const p = petals[i];
+
+                    const dx = mouseX - p.x;
+                    const dy = mouseY - p.y;
+                    const dist = Math.hypot(dx, dy);
+
+                    if (dist < mouseRadius && dist > 0) {
+                        const force = (1 - dist / mouseRadius) * attraction;
+                        p.vx += (dx / dist) * force;
+                        p.vy += (dy / dist) * force;
+                    }
+
+                    p.sway += p.swaySpd;
+                    p.vx += Math.sin(p.sway) * 0.03;
+
+                    p.vx *= 0.98;
+                    p.vy = Math.min(p.vy + 0.008, 1.5);
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rot += p.rotSpd;
+
+                    // GPU transform
+                    p.el.style.transform =
+                        `translate3d(${p.x}px, ${p.y}px, 0) scale(${p.scale}) rotate(${p.rot}deg)`;
+
+                    // ===== REMOVE WHEN OFFSCREEN =====
+                    const rect = p.el.getBoundingClientRect();
+                    if (
+                        rect.top > window.innerHeight ||
+                        rect.left > window.innerWidth + 100 ||
+                        rect.right < -100
+                    ) {
+                        p.el.remove();
+                        petals.splice(i, 1);
+                    }
+                }
+
+                requestAnimationFrame(updatePetals);
+            }
+
+            // =======================
+            // MOUSE TRACK
+            // =======================
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            document.addEventListener('mouseleave', () => {
+                mouseX = mouseY = -1000;
+            });
+
+            // =======================
+            // START
+            // =======================
+            function initialBurst() {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(createPetal, i * 200);
+                }
+            }
+
+            function startPetalRain() {
+                if (!petalsContainer) return;
+                const timer = setInterval(() => {
+                    if (shouldStopAnimation()) return clearInterval(timer);
+                    createPetal();
+                }, 400);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                if (!shouldStopAnimation() && petalsContainer) {
+                    initialBurst();
+                    setTimeout(startPetalRain, 3000);
+                    updatePetals();
+                }
+            });
         </script>
+
+
 </body>
 
 </html>
