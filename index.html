@@ -77,6 +77,11 @@
             animation: sway 2s ease-in-out infinite;
         }
 
+        /* Custom beer cursor */
+        * {
+            cursor: url('./beer2.svg') 16 16, auto !important;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
 
 
@@ -422,10 +427,48 @@
         .video-popup.active {
             animation: fadeIn 0.3s ease forwards;
         }
+
+        /* Walking Tiger */
+        .walking-tiger {
+            position: fixed;
+            bottom: 20px;
+            left: -150px;
+            width: 420px;
+            height: auto;
+            z-index: 100;
+            animation: walkTiger 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes walkTiger {
+            0% {
+                left: -150px;
+                transform: scaleX(1);
+            }
+            45% {
+                left: calc(100vw + 50px);
+                transform: scaleX(1);
+            }
+            50% {
+                left: calc(100vw + 50px);
+                transform: scaleX(-1);
+            }
+            95% {
+                left: -150px;
+                transform: scaleX(-1);
+            }
+            100% {
+                left: -150px;
+                transform: scaleX(1);
+            }
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Walking Tiger -->
+    <img src="https://i.pinimg.com/originals/27/2f/0c/272f0c7265eecacdfb3f384a1c6dfb35.gif" width="500px" alt="Tiger" class="walking-tiger">
 
     <div class="petals-container" id="vnx-petals" style="z-index: 10;"></div>
 
@@ -768,8 +811,8 @@
             // =======================
             function updatePetals() {
                 if (!petalsContainer) return;
-                const mouseRadius = 130;
-                const attraction = 0.2;
+                const mouseRadius = 100;
+                const tossForce = 2; // Lực tung nhẹ
 
                 for (let i = petals.length - 1; i >= 0; i--) {
                     const p = petals[i];
@@ -778,10 +821,13 @@
                     const dy = mouseY - p.y;
                     const dist = Math.hypot(dx, dy);
 
+                    // Khi chuột gần thì tung ly bia lên nhẹ nhàng
                     if (dist < mouseRadius && dist > 0) {
-                        const force = (1 - dist / mouseRadius) * attraction;
-                        p.vx += (dx / dist) * force;
-                        p.vy += (dy / dist) * force;
+                        const force = (1 - dist / mouseRadius) * tossForce;
+                        // Tung lên nhẹ và đẩy ra xa chút
+                        p.vy -= force * 0.5; // Tung lên nhẹ
+                        p.vx += (p.x - mouseX) / dist * force * 0.2; // Đẩy ra xa nhẹ
+                        p.rotSpd += (Math.random() - 0.5) * 1.5; // Xoay nhẹ
                     }
 
                     p.sway += p.swaySpd;
